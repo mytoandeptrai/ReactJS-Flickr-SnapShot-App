@@ -6,13 +6,17 @@ export const PhotoContext = createContext();
 const PhotoContextProvider = props => {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [imageModal, setImageModal] = useState(null);
+  const [page, setPage] = useState(1);
+
   const runSearch = query => {
     axios
       .get(
-        `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`
+        `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&page=${page}&per_page=24&format=json&nojsoncallback=1`
       )
       .then(response => {
-        setImages(response.data.photos.photo);
+        const photoResponse = response.data.photos.photo;
+        setImages(prev => [...prev, ...photoResponse]);
         setLoading(false);
       })
       .catch(error => {
@@ -23,7 +27,7 @@ const PhotoContextProvider = props => {
       });
   };
   return (
-    <PhotoContext.Provider value={{ images, loading, runSearch }}>
+    <PhotoContext.Provider value={{ images, loading, runSearch, imageModal, setImageModal, page, setPage }}>
       {props.children}
     </PhotoContext.Provider>
   );

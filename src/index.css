@@ -134,6 +134,7 @@ input {
   height: 165px;
   overflow: hidden;
   margin-bottom: 15px;
+  position: relative;
 }
 
 .photo-container ul img {
@@ -142,13 +143,69 @@ input {
   transition: transform 1.25s;
 }
 
+.photo-container ul .image-title {
+  position: absolute;
+  color: white;
+  bottom: 0;
+  padding: 10px 20px;
+  text-align: center;
+  background: black;
+  width: 100%;
+  opacity: 0;
+}
+
 .photo-container li:hover img {
   transform: scale(1.65);
+}
+
+.photo-container li:hover .image-title {
+  opacity: 1;
+  transition: all 0.2s linear;
 }
 
 .photo-container .not-found {
   width: 100%;
 }
+
+.image-modal {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  background-color: #3f4850;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.image-container {
+  width: 500px;
+  height: 500px;
+  position: relative;
+  background-color: #fff;
+  display: flex;
+  align-items: flex-start;
+}
+
+.images {
+  width: 80%;
+  flex: 1;
+}
+
+.images img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-close {
+  cursor: pointer;
+}
+
+
 
 .loader {
   border: 16px solid #f3f3f3;
